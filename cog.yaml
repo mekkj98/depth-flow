@@ -1,0 +1,7 @@
+build:
+  gpu: true
+  python_version: "3.12"
+  run:
+    - pip install torch==2.4.1
+    - pip install depthflow==0.8.0
+predict: "predict.py:Predictor"
