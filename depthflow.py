@@ -1,26 +1,69 @@
 import runpod
-from DepthFlow import DepthScene
-from DepthFlow.Animation import Actions
+from DepthFlow import DepthScene, Animation
 import base64
 import os
+
+# Supported Animations and Their Parameters:
+# Vertical:
+#   - intensity: float (default: 1.0)
+#   - reverse: bool (default: False)
+#   - smooth: bool (default: True)
+#   - loop: bool (default: True)
+#   - phase: float (default: 0.0)
+#   - steady: float (default: 0.3)
+#   - isometric: float (default: 0.6)
+# Horizontal:
+#   - intensity: float (default: 1.0)
+#   - reverse: bool (default: False)
+#   - smooth: bool (default: True)
+#   - loop: bool (default: True)
+#   - phase: float (default: 0.0)
+#   - steady: float (default: 0.3)
+#   - isometric: float (default: 0.6)
+# Zoom:
+#   - intensity: float (default: 1.0)
+#   - reverse: bool (default: False)
+#   - smooth: bool (default: True)
+#   - loop: bool (default: True)
+#   - phase: float (default: 0.0)
+# Circle:
+#   - amplitude: tuple(float, float, float) (default: (1.0, 1.0, 0.0))
+#   - smooth: bool (default: True)
+#   - phase: tuple(float, float, float) (default: (0.0, 0.0, 0.0))
+#   - steady: float (default: 0.3)
+#   - isometric: float (default: 0.6)
+# Dolly:
+#   - intensity: float (default: 1.0)
+#   - reverse: bool (default: False)
+#   - smooth: bool (default: True)
+#   - loop: bool (default: True)
+#   - depth: float (default: 0.5)
+#   - phase: float (default: 0.0)
+# Orbital:
+#   - depth: float (default: 0.0)
+
 
 def handler(event):
     input = event['input']
     image = input.get('image')
 
-    fps=30
-    time=5
+    fps = input.get('fps', 30)
+    time = input.get('time', 5)
 
-    intensity=1.5
-    reverse=True
-    no_loop=True
-    depth=0.5
+    # Animation parameters
+    animation_type = input.get('animation_type', 'dolly')
+    animation_params = input.get('animation_params', {})
+
     # Create a DepthScene instance
     scene = DepthScene()
 
-    # Set dolly parameters
-    # depthflow dolly -nl -i 3 -d 1 input -i https://files.aireelgenerator.com/prod/shorts/images/exooh9tnj9oxrk7j2k3eoo1q.png main -o ./output-a.mp4 --time 10
-    scene.animation.add(Actions.Dolly(intensity=intensity, reverse=reverse, no_loop=no_loop, depth=depth ))
+    # Dynamically add the specified animation
+    if hasattr(Animation.Actions, animation_type.capitalize()):
+        animation_class = getattr(Animation.Actions, animation_type.capitalize())
+        animation = animation_class(**animation_params)
+        scene.animation.add(animation)
+    else:
+        raise ValueError(f"Invalid animation type: {animation_type}")
 
     # Provide the image input
     scene.input(image=image)
