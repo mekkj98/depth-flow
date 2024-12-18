@@ -50,8 +50,9 @@ RUN curl -L "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/${FF
 
 
 # Cache depth estimator models
-RUN pip install huggingface-hub && \
-    huggingface-cli download "depth-anything/Depth-Anything-V2-small-hf" && \
+RUN pip install huggingface-hub
+
+RUN huggingface-cli download "depth-anything/Depth-Anything-V2-small-hf" && \
     huggingface-cli download "depth-anything/Depth-Anything-V2-base-hf"
 
 # Install a PyTorch flavor
