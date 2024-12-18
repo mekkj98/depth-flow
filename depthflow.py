@@ -1,5 +1,6 @@
-from DepthFlow import DepthScene
 import runpod
+from DepthFlow import DepthScene
+from DepthFlow.Animation import Actions
 import base64
 import os
 
@@ -7,15 +8,19 @@ def handler(event):
     input = event['input']
     image = input.get('image')
 
-    intensity=1.5
-    reverse=True
     fps=30
     time=5
+
+    intensity=1.5
+    reverse=True
+    no_loop=True
+    depth=0.5
     # Create a DepthScene instance
     scene = DepthScene()
 
     # Set dolly parameters
-    scene.dolly(intensity=intensity, reverse=reverse)
+    # depthflow dolly -nl -i 3 -d 1 input -i https://files.aireelgenerator.com/prod/shorts/images/exooh9tnj9oxrk7j2k3eoo1q.png main -o ./output-a.mp4 --time 10
+    scene.animation.add(Actions.Dolly(intensity=intensity, reverse=reverse, no_loop=no_loop, depth=depth ))
 
     # Provide the image input
     scene.input(image=image)
