@@ -4,12 +4,8 @@
 # ------------------------------------------------------------------------------------------------ #
 # General metadata and configuration
 
-ARG BASE_IMAGE="ubuntu:24.04"
-FROM ${BASE_IMAGE}
-ENV DEBIAN_FRONTEND="noninteractive"
-ARG WORKDIR="/App"
+FROM python:3.12.1-slim-bullseye
 RUN apt update
-WORKDIR "${WORKDIR}"
 
 # ------------------------------------------------------------------------------------------------ #
 # Make Vulkan and OpenGL EGL acceleration work on NVIDIA (the unveiled magic of nvidia/glvnd)
