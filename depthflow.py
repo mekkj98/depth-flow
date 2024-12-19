@@ -1,6 +1,7 @@
 import runpod
 from DepthFlow.Scene import DepthScene
-from DepthFlow.Motion import Actions
+from DepthFlow.Motion import Animation, Components, Preset, Presets, Target
+
 import base64
 import os
 
@@ -59,8 +60,8 @@ def handler(event):
     scene = DepthScene()
 
     # Dynamically add the specified animation
-    if hasattr(Actions, animation_type.capitalize()):
-        animation_class = getattr(Actions, animation_type.capitalize())
+    if hasattr(Presets, animation_type.capitalize()):
+        animation_class = getattr(Presets, animation_type.capitalize())
         animation = animation_class(**animation_params)
         scene.animation.add(animation)
     else:
