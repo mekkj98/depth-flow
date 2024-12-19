@@ -1,6 +1,6 @@
 import runpod
 from DepthFlow.Scene import DepthScene
-from DepthFlow.Motion import Animation, Components, Preset, Presets, Target
+from DepthFlow.Motion import Presets
 
 import base64
 import os
@@ -53,7 +53,7 @@ def handler(event):
     time = input.get('time', 5)
 
     # Animation parameters
-    animation_type = input.get('animation_type', 'dolly')
+    animation_type = input.get('animation_type', 'Dolly')
     animation_params = input.get('animation_params', {})
 
     # Create a DepthScene instance
@@ -63,7 +63,7 @@ def handler(event):
     if hasattr(Presets, animation_type.capitalize()):
         animation_class = getattr(Presets, animation_type.capitalize())
         animation = animation_class(**animation_params)
-        scene.animation.add(animation)
+        scene.add_animation(animation)
     else:
         raise ValueError(f"Invalid animation type: {animation_type}")
 
