@@ -2,3 +2,6 @@ __pycache__
 .cog
 venv
 test.py
+base64-vid
+curl-request.sh
+tests
