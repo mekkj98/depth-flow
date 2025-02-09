@@ -11,6 +11,14 @@ This is a runpod implementation of the DepthFlow library.
 Runpod Create Endpoint URL:
 https://www.runpod.io/console/serverless/new-endpoint
 
+I used a 24GB GPU for this endpoint. You can use a smaller GPU if you want, but it will be slower.
+
+It takes about 5 minutes to build.
+
+## License
+
+MIT
+
 
 
 ## Testing
