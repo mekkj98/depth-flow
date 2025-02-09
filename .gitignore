@@ -5,3 +5,5 @@ test.py
 base64-vid
 curl-request.sh
 tests
+
+.DS_Store
