@@ -58,10 +58,13 @@ RUN pip install torch=="${TORCH_VERSION}+${TORCH_FLAVOR}" \
     --index-url "https://download.pytorch.org/whl/${TORCH_FLAVOR}"
 RUN pip install transformers
 RUN pip install runpod
-RUN pip install depthflow
 
 # ------------------------------------------------------------------------------------------------ #
 
+# Copy requirements and install dependencies
+COPY requirements.txt /app/requirements.txt
+WORKDIR /app
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY depthflow.py /depthflow.py
 
