@@ -1,6 +1,7 @@
 import runpod
+
 from depthflow.scene import DepthScene
-from depthFlow.Motion import Presets
+from depthflow.motion import Presets
 
 import base64
 import os
